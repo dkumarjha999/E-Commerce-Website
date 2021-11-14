@@ -1,0 +1,483 @@
+﻿
+@model WebApplication4MVC.ViewModels.ProductAvailablityViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<!doctype html>
+<html>
+<head>
+    <title>Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <form id="form1">
+        <div><input type="hidden" id="rowId" name="rowId"></div>
+        <input type="hidden" id="nPkId" value="@Model.Product_Availability.Id" />
+        <div class="container">
+            <div class="form-group" style="overflow:scroll">
+                <table class="table" id="ProductAvl">
+                    <thead>
+                        <tr>
+                            <th>VendorName</th>
+                            <th>AvailabilityDate</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr class="data-Product-availability">
+                            <td>
+                                @Html.DropDownListFor(model => model.Product_Availability.VendorId, Model.list_Vendor_Info, "Select Vendor Name", new { @class = "form-control" })
+                            </td>
+                            <td><input type="date" id="avldate" name="AvailabilityDate" class="form-control datepicker" value="@Model.Product_Availability.AvailabilityDate" /></td>
+                            <td><input type="text" id="description" name="Description" class="form-control datepicker" value="@Model.Product_Availability.Description" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group" style="overflow:scroll">
+                <table class="table" style="width:1500px;" id="maintable">
+                    <thead>
+                        <tr>
+                            <th width="35%">
+                                ProductName
+                                @Html.DropDownListFor(model => model.Product_Availability_Detail.ProductId, Model.list_Product_Info_Detail, "Select  Product Name", new { @class = "form-control" })
+                            </th>
+                            <th width="35%">
+                                Brand
+                                @Html.DropDownListFor(model => model.Product_Availability_Detail.BrandId, Model.list_Product_Brand, "Select Brand Name", new { @class = "form-control" })
+                            </th>
+                            <th width="8%">
+                                Quantity
+                                <input type="text" id="quantity" name="quantity" class="form-control quantity" />
+                            </th>
+                            <th width="14%">
+                                Cost (Unit)<input type="text" id="cost" name="cost" class="form-control cost" />
+                            </th>
+                            <th width="8%">
+                                Discount (Rs.)<input type="text" id="discount" name="discount" class="form-control" />
+                            </th>
+                            <th>
+                                MfgDate<input type="date" id="mfgdate" name="mfgdate" class="form-control" />
+                            </th>
+                            <th>
+                                ExpDate<input type="date" id="expdate" name="expdate" class="form-control" />
+                            </th>
+                            <th>
+                                BestBefore<input type="date" id="bestbefore" name="bestbefore" class="form-control bestbefore" />
+                            </th>
+                            <th><input type="hidden" id="currentRow" /></th>
+                            <th>
+                                @*<button type="button" class="btn btn-success savebtn" style="padding: 6px 12px;margin-left: 40%;" id="savebutton"><i class="icon-check-sign" aria-hidden="false"></i>Add</button>*@
+                                <button type="button" id="btnAdd" class="btn btn-xs btn-primary classAdd" onclick="myButton3()">AddProduct</button>
+                            </th>
+                            <th><button type="button" id="btnUpdate" class="btn btn-xs btn btn-success classUpdate" onclick="myButton3()">Update</button></th>
+                            <th><button type="button" id="btnCancel" class="btn btn-xs btn-primary classCancel" onclick="myButton3()">Cancel</button></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{var a = 0;}
+                        @foreach (var item in Model.list_Product_Availability_Detail)
+                        {
+                            <tr>
+                                <td style="display:none;">@item.ProductId</td>
+                                <td>@item.ProductName</td>
+                                <td style="display:none;">@item.BrandId</td>
+                                <td>@item.BrandName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Cost</td>
+                                <td>@item.Discount</td>
+                                <td>@item.MfgDate</td>
+                                <td>@item.ExpDate</td>
+                                <td>@item.BestBefore</td>
+                                <td style="display:none;">@a</td>
+                                <td><button type="button" id="btnEdit" class=" btnEdit btn btn btn-info btn-xs" onclick="GetRow(this),myButton2()">Edit</button></td>
+                                <td><button type="button" id="btnDelete" class="deleteProduct btn btn btn-danger btn-xs">Remove</button></td>
+                            </tr>
+                            { a += 1; }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <button type="button" id="btnSubmit" class="btn btn-success btn-md pull-right  btn-button-warning-ct">SaveProducts</button>
+        </div>
+    </form>
+</body>
+</html>
+
+<script>
+    function myButton2() {
+        document.getElementById("btnAdd").style.visibility = "hidden";
+        document.getElementById("btnUpdate").style.visibility = "visible";
+        document.getElementById("btnCancel").style.visibility = "visible";
+    }
+
+    function myButton3() {
+        document.getElementById("btnAdd").style.visibility = "visible";
+        document.getElementById("btnUpdate").style.visibility = "hidden";
+        document.getElementById("btnCancel").style.visibility = "hidden";
+    }
+
+
+
+    $(function () {
+        $(document).ready(function () {
+
+            document.getElementById('avldate').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+            document.getElementById("btnUpdate").style.visibility = "hidden";
+            document.getElementById("btnCancel").style.visibility = "hidden";
+
+
+            $(document).on("click", ".classAddProductAvl", function () {   // selecting vendor
+                var rowCount = $('.data-Product-availability').length + 1;
+                var contactdiv = '<tr>'
+                    + '<td>' + $("#Product_Availability_VendorId option:selected").text() + '</td>'
+                    + '<td style="display:none;">' + $("#Product_Availability_VendorId option:selected").val() + '</td>'
+                    + '<td>' + $('#avldate').val() + '</td>'
+                    + '<td>"' + $('#description').val() + '"</td>'
+                '</tr>';
+                $('#ProductAvl').append(contactdiv); // Adding these controls to Main table class
+
+                ClearFields1();
+            });
+
+        });
+    });
+
+
+    function clearfields1() {
+
+        document.getelementbyid("avldate").value = "";
+        document.getelementbyid("description").value = "";
+        document.getelementbyid("vendorid").selectedindex = 0;
+    }
+
+
+    $(document).on("click", ".classAdd", function () {     // function for adding product in row
+        //var rowCount = $('.data-contact-person').length + 1;
+        //var a = $("#ProductId option:selected").text();
+
+        var pr_id = $('#Product_Availability_Detail_ProductId').val();
+        var br_id = $('#Product_Availability_Detail_BrandId').val();
+        var qty = $('#quantity').val();
+        var cost = $('#cost').val();
+        var disc = $('#discount').val();
+        var mfg = $('#mfgdate').val();
+        var exp = $('#expdate').val();
+        var bstb = $('#bestbefore').val();
+        var rowid = $('#rowId').val();
+
+        if (pr_id == "" || br_id == "" || qty == "" || cost == "" || disc == "" || mfg == "" || exp == "" || bstb == "")
+        {
+            alert('Some Feilds Are Empty');
+            return;
+
+        }
+
+        if ((pr_id != "") && (br_id != "") && (qty != "") && (cost != "") && (disc != "") && (mfg != "") && (exp != "") && (bstb != "")) {
+                if (mfg > exp) {
+                alert("!! Error mfg date is greater than expiry date please select date again");
+
+            }
+            else if (mfg > bstb) {
+                alert(" Error mfg date is greater than  best before date please select date again");
+
+            }
+            else if (exp > bstb) {
+                alert(" Error exp date is greater than  best before date please select date again ");
+
+            }
+            else if (parseFloat(disc)<0)
+            {
+                alert("discount Should be Positive");
+            }
+            else if (parseFloat(cost) <= 0) {
+                alert("Cost Should be Positive greater than Zero");
+            }
+            else if (parseFloat(qty) <= 0) {
+                alert("Quantity Should be Positive greater than Zero");
+            }
+            else if (parseFloat(disc) > parseFloat(cost)) {
+                alert(" !! Sorry Discount Should be smaller than cost fill it again");
+
+            }
+            else {
+                var contactdiv = '<tr>'
+                            + '<td style="display:none;">' + $("#Product_Availability_Detail_ProductId option:selected").val() + '</td>'
+                            + '<td>' + $("#Product_Availability_Detail_ProductId option:selected").text() + '</td>'
+                            + '<td style="display:none;">' + $('#Product_Availability_Detail_BrandId option:selected').val() + '</td>'
+                            + '<td>' + $('#Product_Availability_Detail_BrandId option:selected').text() + '</td>'
+                            + '<td>' + $('#quantity').val() + '</td>'
+                            + '<td>' + $('#cost').val() + '</td>'
+                            + '<td>' + $('#discount').val() + '</td>'
+                            + '<td>' + $('#mfgdate').val() + '</td>'
+                            + '<td>' + $('#expdate').val() + '</td>'
+                            + '<td>' + $('#bestbefore').val() + '</td> '
+                            + '<td style="display:none;">'+ getrowId() + '</td>'
+                            + '<td><button type="button" id="btnEdit" class=" btnEdit btn btn btn-info btn-xs" onclick="GetRow(this),myButton2()">Edit</button></td>'
+                            + '<td><button type="button" id="btnDelete" class="deleteProduct btn btn btn-danger btn-xs">Remove</button></td></tr>';
+
+                $('#maintable').append(contactdiv);            // Adding these controls to Main table class
+
+                ClearFields();
+                //alert("Product Saved in Row");
+            }
+            // clearing content of column to select
+        }
+
+    });
+
+
+    function GetRow(va) {     // function for Getting all value in form feilds  for editing
+        var row = $(va).closest("TR");
+        var ProductId = $("TD", row).eq(0).html();
+       // var ProductName = $("TD", row).eq(1).html();
+        var BrandId = $("TD", row).eq(2).html();
+        //var BrandName = $("TD", row).eq(3).html();
+        var Quantity = $("TD", row).eq(4).html();
+        var cost = $("TD", row).eq(5).html();
+        var Discount = $("TD", row).eq(6).html();
+        var MfgDate = $("TD", row).eq(7).html();
+        var ExpDate = $("TD", row).eq(8).html();
+        var BestBefore = $("TD", row).eq(9).html();
+        var rowid = $("TD", row).eq(10).html();
+        //alert(rowid);
+
+        //assign in controls
+        $("#Product_Availability_Detail_ProductId").val(ProductId);
+        $('#Product_Availability_Detail_BrandId').val(BrandId);
+        $('#quantity').val(Quantity);
+        $('#cost').val(cost);
+        $('#discount').val(Discount);
+        $('#mfgdate').val(MfgDate);
+        $('#expdate').val(ExpDate);
+        $('#bestbefore').val(BestBefore);
+        $('#rowId').val(rowid);
+
+        //$(va).closest("TR").remove();
+    }
+
+
+    $(document).on("click", ".classUpdate", function () {
+
+        document.getElementById("btnAdd").style.visibility = "visible";
+        document.getElementById("btnUpdate").style.visibility = "hidden";
+        document.getElementById("btnCancel").style.visibility = "hidden";
+
+        //var rowCount = $('.data-contact-person').length+1;
+        //var a = $("#ProductId option:selected").text();
+
+        var pr_id = $('#Product_Availability_Detail_ProductId').val();
+        var br_id = $('#Product_Availability_Detail_BrandId').val();
+        var qty = $('#quantity').val();
+        var cost = $('#cost').val();
+        var disc = $('#discount').val();
+        var mfg = $('#mfgdate').val();
+        var exp = $('#expdate').val();
+        var bstb = $('#bestbefore').val();
+        var rowid = $('#rowId').val();
+
+
+
+        if (pr_id == "" || br_id == "" || qty == "" || cost == "" || disc == "" || mfg == "" || exp == "" || bstb == "") {
+            alert('Some Feilds Are Empty');
+            return;
+        }
+
+        if ((pr_id != "") && (br_id != "") && (qty != "") && (cost != "") && (disc != "") && (mfg != "") && (exp != "") && (bstb != "")) {
+            if (mfg > exp) {
+                alert("!! Error mfg date is greater than expiry date please select date again");
+
+            }
+            else if (mfg > bstb) {
+                alert(" Error mfg date is greater than  best before date please select date again");
+
+            }
+            else if (exp > bstb) {
+                alert(" Error exp date is greater than  best before date please select date again ");
+
+            }
+            else if (parseFloat(disc) < 0) {
+                alert("discount Should be Positive");
+            }
+            else if (parseFloat(cost) <= 0) {
+                alert("Cost Should be Positive greater than Zero");
+            }
+            else if (parseFloat(qty) <= 0) {
+                alert("Quantity Should be Positive greater than Zero");
+            }
+            else if (parseFloat(disc) > parseFloat(cost)) {
+                alert(" !! Sorry Discount Should be smaller than cost fill it again");
+            }
+            else {
+
+                $('#maintable > tbody  > tr').each(function () {
+                    var cellrowid = this.cells[10].innerHTML;
+                    //alert(rowid);
+                    //alert(cellrowid);
+                    if (rowid == cellrowid) {
+                        this.cells[1].innerHTML = $("#Product_Availability_Detail_ProductId option:selected").text();
+                        this.cells[0].innerHTML = $("#Product_Availability_Detail_ProductId option:selected").val();
+                        this.cells[3].innerHTML = $("#Product_Availability_Detail_BrandId option:selected").text();
+                        this.cells[2].innerHTML = $("#Product_Availability_Detail_BrandId option:selected").val();
+                        this.cells[4].innerHTML = $("#quantity").val();
+                        this.cells[5].innerHTML = $("#cost").val();
+                        this.cells[6].innerHTML = $("#discount").val();
+                        this.cells[7].innerHTML = $("#mfgdate").val();
+                        this.cells[8].innerHTML = $("#expdate").val();
+                        this.cells[9].innerHTML = $("#bestbefore").val();
+                        this.cells[10].innerHTML = $('#rowId').val();
+                    }
+
+                        //var contactdiv = '<tr>'
+                        //            + '<td>' + $("#Product_Availability_Detail_ProductId option:selected").text() + '</td>'
+                        //            + '<td style="display:none;">' + $("#Product_Availability_Detail_ProductId option:selected").val() + '</td>'
+                        //            + '<td>' + $('#Product_Availability_Detail_BrandId option:selected').text() + '</td>'
+                        //            + '<td style="display:none;">' + $('#Product_Availability_Detail_BrandId option:selected').val() + '</td>'
+                        //            + '<td>' + $('#quantity').val() + '</td>'
+                        //            + '<td>' + $('#cost').val() + '</td>'
+                        //            + '<td>' + $('#discount').val() + '</td>'
+                        //            + '<td>' + $('#mfgdate').val() + '</td>'
+                        //            + '<td>' + $('#expdate').val() + '</td>'
+                        //            + '<td>' + $('#bestbefore').val() + '</td> '
+                        //            + '<td style="display:none;">' + rowid + '</td> '
+                        //            + '<td><button type="button" id="btnEdit" class="btn btn btn-info btn-xs" onclick="GetRow(this)">Edit</button></td>'
+                        //            + '<td><button type="button" id="btnDelete" class="deleteProduct btn btn btn-danger btn-xs">Remove</button></td></tr>';
+
+                        //$('#maintable').append(contactdiv);// Adding these controls to Main table class
+
+                          // clearing content of column to select
+
+                });
+                alert("Updated Product Saved in Row");
+                ClearFields();
+            }
+
+        }
+
+    });
+
+    $(document).on("click", ".classCancel", function () {     // function for adding product in row
+        var rowCount = $('.data-contact-person').length + 1;
+        ClearFields();   // clearing content of column to select
+    });
+
+
+    $(document).on("click", ".deleteProduct", function () { // function for deleting product row
+        alert("Do You REally Want to Delete This Product ??");
+        $(this).closest("tr").remove();
+    });
+
+
+    function ClearFields() {  // function for clear feilds
+
+        document.getElementById("quantity").value = "";
+        document.getElementById("cost").value = "";
+        document.getElementById("discount").value = "";
+        document.getElementById("mfgdate").value = "";
+        document.getElementById("expdate").value = "";
+        document.getElementById("bestbefore").value = "";
+        $("#Product_Availability_Detail_ProductId").val("");  //in  model control model name will be as id
+        $("#Product_Availability_Detail_BrandId").val("");
+    }
+
+    function getrowId()
+    {
+        var cellrowid = 0;
+        $('#maintable > tbody  > tr').each(function () {
+            cellrowid = this.cells[10].innerHTML;
+            //alert(cellrowid);
+        });
+        //alert((parseInt(cellrowid) + 1));
+        return (parseInt(cellrowid)+1);
+        }
+
+
+
+
+
+    $(document).on("click", "#btnSubmit", function () {     // function for submit
+
+        var v_vendor = document.getElementById("Product_Availability_VendorId").value;
+        var v_avlDt = document.getElementById("avldate").value;
+        var v_des = document.getElementById("description").value;
+
+        //alert(v_avlDt);
+        //alert(v_des);
+
+        if (v_vendor == "" || v_avlDt == "" || v_des=="") {
+            alert("Vendor Some Feilds Are Empty");
+            return;
+        }
+
+        var m_data = {
+            VendorId: v_vendor,
+            Description: v_des,
+            AvailabilityDate: v_avlDt
+        };
+
+        var prod = new Array();
+        $('#maintable > tbody  > tr').each(function () {
+            var col = {};
+                col.ProductId = this.cells[0].innerHTML,
+                col.BrandId = this.cells[2].innerHTML,
+                col.Quantity = this.cells[4].innerHTML,
+                col.cost = this.cells[5].innerHTML,
+                col.Discount = this.cells[6].innerHTML,
+                col.MfgDate = this.cells[7].innerHTML,
+                col.ExpDate = this.cells[8].innerHTML,
+                col.BestBefore = this.cells[9].innerHTML
+                prod.push(col);
+
+        });
+        if (prod == "")
+        {
+            alert("No Products Selected Please select Atleast One Product");
+            return;
+        }
+        var detail_data = {}
+        detail_data = prod;
+
+        var _id = document.getElementById("nPkId").value;
+
+        debugger;  // same as Break Point
+        var formdata = new FormData();
+        formdata.append("master", JSON.stringify(m_data));
+        formdata.append("detail", JSON.stringify(detail_data));
+        formdata.append("avid", _id);
+        //wqrite ajax and pass formdata to controller
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Edit", "ProductAvailablity")',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.length > 0)
+                {
+                    alert("Products Updated Successfully");
+
+                }
+
+            }
+
+        });
+
+
+    });
+</script>
+
+

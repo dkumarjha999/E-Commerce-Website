@@ -1,0 +1,58 @@
+﻿@model WebApplication4MVC.Models.Vendor_Bank_Info
+<div>
+   <hr /><h4>VendorBankInfo</h4>
+    
+    <dl class="dl-horizontal">
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.VendorName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.VendorName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.BankName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.BankName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.IFSCCode)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.IFSCCode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Branch)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Branch)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AccountNo)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.AccountNo)
+                </td>
+            </tr>
+        </table>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

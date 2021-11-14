@@ -1,0 +1,55 @@
+﻿@model WebApplication4MVC.ViewModels.ProductAvailablityViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<hr />
+<h4>ProductAvailability</h4><br />
+
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td>SNo</td>
+            <td>Vendor</td>
+            <td>AvailabilityDate</td>
+            <td>Description</td>           
+             <td>@Html.ActionLink("Add ProductAvl", "Create", "ProductAvailablity")</td>
+            <td>CheckProductDetails</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @{ int RowNo = 0;}
+        @foreach (var item in Model.list_Product_Availability)
+        {
+            <tr>
+                <td>@(RowNo += 1)</td>
+                <td>@item.Ven_name</td>
+                <td>@item.AvailabilityDate</td>
+                <td>@item.Description</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+                </td>
+                <td>@Html.ActionLink("Check Products", "ProductDetails", new { nid = Convert.ToInt32(item.Id) })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.Msg")
+        });
+    </script>
+}
+
+
+
+

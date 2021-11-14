@@ -1,0 +1,106 @@
+﻿@model WebApplication4MVC.Models.Vendor_Info
+<div>
+    <br /><h4>Vendor Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.VendorName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.VendorName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Mobile)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Mobile)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CountryName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.CountryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.StateName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.StateName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CityName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.CityName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PinCode)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.PinCode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.GSTIN)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.GSTIN)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PanCardNumber)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.PanCardNumber)
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    @Html.DisplayNameFor(model => model.Address)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Address)
+                </td>
+            </tr>
+
+        </table>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VendorId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

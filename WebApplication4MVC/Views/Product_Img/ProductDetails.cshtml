@@ -1,0 +1,323 @@
+﻿@model IEnumerable<WebApplication4MVC.Models.ProductImg>
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_LayoutP.cshtml";
+}
+
+<style>
+    img {
+        width: auto; /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+        height: auto; /* set to anything and aspect ratio is maintained */
+        max-width: 280px;
+        max-height: 350px;
+        min-height: 30px;
+        min-width: 100px;
+        border: 0; /* for older IE browsers that draw borders around images */
+    }
+    #Small{
+         width: auto; /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+        height: auto; /* set to anything and aspect ratio is maintained */
+        max-width: 80px;
+        max-height: 125px;
+        min-height: 100px;
+        min-width: 100px;
+        border: 0; 
+    }
+</style>
+<div class="container">
+    <div class="form-horizontal">
+    <!-- Single pro tab start-->
+    @foreach (var item in Model)
+        {
+        <div class="single-product-tab-area mg-t-15 mg-b-30">
+            @{decimal dis = @item.Discount;}
+            @{decimal cost = @item.Cost;}
+            @{int disper = Convert.ToInt32((dis / cost) * 100);}
+
+            <!-- Basic Image cropper Start -->
+
+            <div class="sparkline10-list shadow-reset">
+                <div class="sparkline10-graph">
+                    <div class="basic-login-form-ad">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dual-list-box-inner">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="image-crop">
+                                                <img id="primg" src="@Url.Content(item.ImgPath)" alt="" style="height:320px" />
+                                            </div>
+                                            <span class="btn-small"> @disper% OFF</span>
+                                        </div>
+
+                                        <div class="col-md-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="preview-img-pro-ad" style="height:320px">
+                                                <h4>Preview image</h4>
+                                                <div class="img-preview img-preview-custom"></div>
+
+
+                                                <div class="btn-group images-action-pro">
+                                                    <button class="btn btn-white" id="zoomIn" type="button">Zoom In</button>
+                                                    <button class="btn btn-white" id="zoomOut" type="button">Zoom Out</button>
+                                                  
+                                                    <button class="btn btn-white" id="rotateLeft" type="button">Rotate Left</button>
+                                                    <button class="btn btn-white" id="rotateRight" type="button">Rotate Right</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                            <div class="single-product-details res-pro-tb">
+                                                <br /><h1>@item.ProductName</h1>
+                                                <span class="single-pro-star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+                                                <div class="single-pro-price">
+                                                    <span class="single-regular">&#x20B9; @cost/-</span>
+                                                </div>
+                                                <div class="color-quality-pro">
+                                                    <div class="clear"></div>
+                                                    <div class="single-pro-button">
+                                                        <div class="pro-button">
+                                                            <a href="#">ADD TO Cart</a>
+                                                        </div>
+                                                        <div class="pro-viwer">
+                                                            <a href="#"><i class="fa fa-heart"></i></a>
+                                                            <a href="#"><i class="fa fa-eye"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                    <div class="single-social-area">
+                                                        <h3>Share Image On</h3>
+                                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                        <a href="#"><i class="fa fa-feed"></i></a>
+                                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sparkline10-list shadow-reset">
+            <div class="sparkline10-graph">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul id="myTab" class="tab-review-design">
+                                <li class="active"><span><i class="fa fa-star"></i></span><a href="#description">description</a></li>
+                                <li><span><i class="fa fa-star"></i></span><a href="#reviews">Reviews</a></li>
+                                <li><span><i class="fa fa-star"></i></span><a href="#INFORMATION">INFORMATION</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="product-tab-list product-details-ect tab-pane fade active in" id="description">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <p>@item.Description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-tab-list tab-pane fade" id="reviews">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <div class="review-content-section">
+                                                    <div class="card-block">
+                                                        <div class="text-muted f-w-400">
+                                                            <p>Product Reviews.</p>
+                                                        </div>
+                                                        <div class="m-t-10">
+                                                            <div class="txt-primary f-18 f-w-600">
+                                                                <p>Give Your Rating</p>
+                                                            </div>
+                                                            <div class="stars stars-example-css detail-stars">
+                                                                <div class="review-rating">
+                                                                    <fieldset class="rating">
+                                                                        <input type="radio" id="star5" name="rating" value="5">
+                                                                        <label class="full" for="star5"></label>
+                                                                        <input type="radio" id="star4half" name="rating" value="4 and a half">
+                                                                        <label class="half" for="star4half"></label>
+                                                                        <input type="radio" id="star4" name="rating" value="4">
+                                                                        <label class="full" for="star4"></label>
+                                                                        <input type="radio" id="star3half" name="rating" value="3 and a half">
+                                                                        <label class="half" for="star3half"></label>
+                                                                        <input type="radio" id="star3" name="rating" value="3">
+                                                                        <label class="full" for="star3"></label>
+                                                                        <input type="radio" id="star2half" name="rating" value="2 and a half">
+                                                                        <label class="half" for="star2half"></label>
+                                                                        <input type="radio" id="star2" name="rating" value="2">
+                                                                        <label class="full" for="star2"></label>
+                                                                        <input type="radio" id="star1half" name="rating" value="1 and a half">
+                                                                        <label class="half" for="star1half"></label>
+                                                                        <input type="radio" id="star1" name="rating" value="1">
+                                                                        <label class="full" for="star1"></label>
+                                                                        <input type="radio" id="starhalf" name="rating" value="half">
+                                                                        <label class="half" for="starhalf"></label>
+                                                                    </fieldset>
+                                                                </div>
+                                                                <div class="clear"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group mg-b-15 mg-t-15">
+                                                            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                            <input type="text" class="form-control" placeholder="User Name">
+                                                        </div>
+                                                        <div class="input-group mg-b-15">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Email">
+                                                        </div>
+
+                                                        <div class="input-group mg-b-15">
+                                                            <span class="input-group-addon"><i class="fa fa-feed" aria-hidden="true"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Review Message">
+                                                        </div>
+                                                        <div class="form-group review-pro-edt">
+                                                            <a class="btn btn-primary waves-effect waves-light" href="@Url.Action("Review", "Product_Img",new {Uid=item.VendorId})">
+                                                                Submit
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-tab-list tab-pane fade" id="INFORMATION">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                               
+                                                  
+                                                        <p>
+                                                            <strong>
+                                                                This Is Product Of Category @item.CategoryName  And Sub Category Name is @item.SubCategoryName
+                                                                Is Made By Brand @item.BrandName . Products MfgDate is @Convert.ToDateTime(item.MfgDate).ToString("dd/MMMM yyyy") And ExpDate is @Convert.ToDateTime(item.ExpDate).ToString("dd/MMMM yyyy")
+                                                                This Product Is Sold By @item.Ven_name.
+                                                            </strong>
+                                                   </p>                                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+   
+
+            <!-- Basic Image cropper End-->
+        }
+
+
+        @*<div class="single-product-tab-area mg-t-15 mg-b-30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                        <div id="myTabContent1" class="tab-content">
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <div class="product-tab-list tab-pane fade active in" id="single-tab_@i">
+                                        <img src="@Url.Content(Model.ElementAt(i).ImgPath)" alt="" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="product-tab-list tab-pane fade" id="single-tab_@i">
+                                        <img src="@Url.Content(Model.ElementAt(i).ImgPath)" alt="" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <ul id="single-product-tab">
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <li class="active">
+                                        <a href="#single-tab_@i"><img src="@Url.Content(Model.ElementAt(i).ImgPath)" alt="" /></a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="#single-tab_@i" id="Small"><img src="@Url.Content(Model.ElementAt(i).ImgPath)" alt="" /></a>
+                                    </li>
+                                }
+                            }
+                            
+                        </ul>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                        <div class="single-product-details res-pro-tb">
+                            <h1>Jewelery ITEM TITLE</h1>
+                            <span class="single-pro-star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+                            <div class="single-pro-price">
+                                <span class="single-regular">$150.00</span><span class="single-old"><del>$20.00</del></span>
+                            </div>
+                            <div class="single-pro-size">
+                                <h6>Size</h6>
+                                <span>S</span> <span>M</span> <span>L</span> <span>XL</span> <span>XXL</span>
+                            </div>
+                            <div class="color-quality-pro">
+                                <div class="color-quality-details">
+                                    <h5>Color</h5>
+                                    <span class="red"></span> <span class="green"></span> <span class="yellow"></span> <span class="black"></span> <span class="white"></span>
+                                </div>
+                                <div class="color-quality">
+                                    <h4>Quality</h4>
+                                    <div class="quantity">
+                                        <div class="pro-quantity-changer">
+                                            <input type="text" value="1" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="single-pro-button">
+                                    <div class="pro-button">
+                                        <a href="#">ADD TO Cart</a>
+                                    </div>
+                                    <div class="pro-viwer">
+                                        <a href="#"><i class="fa fa-heart"></i></a>
+                                        <a href="#"><i class="fa fa-eye"></i></a>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="single-social-area">
+                                    <h3>share this on</h3>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-feed"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="single-pro-cn">
+                                <h3>OVERVIEW</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat. Duis aute irure dolor in reprehenderit in voluptate
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        </div>
+    </div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable< WebApplication4MVC.Models.ProductImg>
+@{
+    ViewBag.Title = "Displaypic";
+    Layout = "~/Views/Shared/_LayoutP.cshtml";
+}
+
+<style>
+    img {
+    width: auto;  /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+    height: auto;  /* set to anything and aspect ratio is maintained */
+    max-width: 180px;
+    max-height: 150px;
+    min-height:30px;
+    min-width:180px;
+    border: 0;  /* for older IE browsers that draw borders around images */
+}
+</style>
+
+
+ @using (Html.BeginForm("ProductDetails", "Product_Img", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+<div class="container">
+    <div class="form-horizontal">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="single-new-trend mg-t-30" style="height:250px; width:220px;">  
+                    <span class="btn-small">Exp @Convert.ToDateTime(item.ExpDate).ToString("dd/MMMM,yy")</span>               
+                    <a title="View Details" href="@Url.Action("ProductDetails", "Product_Img", new { ProdId = item.ProductId })" style="height:150px;width:150px">
+                        <img id="primg" src="@Url.Content(item.ImgPath)" alt="" />
+                    </a>
+                    @*<div class="overlay-content">
+                    </div>*@
+                    <h4>@item.ProductName</h4>
+                    <a href="#">
+                        <h2>&#x20B9;  @item.Cost/-</h2>
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+ }
+

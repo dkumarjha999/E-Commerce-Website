@@ -1,0 +1,64 @@
+﻿@model WebApplication4MVC.Models.Product_sub_cat
+<div>
+    <hr /><h4>Product Sub Category</h4><br />
+
+   
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.CategoryName)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    @Html.DisplayNameFor(model => model.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.SortName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.SortName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Code)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Code)
+                </td>
+            </tr>
+
+        </table>
+
+   
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

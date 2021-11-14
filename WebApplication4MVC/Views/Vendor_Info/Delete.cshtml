@@ -1,0 +1,142 @@
+﻿
+@model WebApplication4MVC.Models.Vendor_Info
+
+<h4>If You Want To Delete Vendor Info First Delete From Vendor Bank Info</h4>
+
+<hr />
+<table class="table">
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.VendorName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.VendorName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Mobile)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Email)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Email)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.MobileVerification)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.MobileVerification)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.EmailVerification)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.EmailVerification)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Country)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Country)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.State)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.State)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.City)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.City)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.PinCode)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.PinCode)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GSTIN)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.GSTIN)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.PanCardNumber)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.PanCardNumber)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Address)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Address)
+        </td>
+    </tr>
+</table> 
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    
+}
+
+@if (ViewBag.AlertMsg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.AlertMsg")
+        });
+    </script>
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication4MVC.Models.Product_Availability_Detail>
+@{
+    ViewBag.Title = "Index";
+}
+<html>
+<head>
+</head>
+
+
+<hr /><br /><br /><br /><br />
+<h4>ProductAvailabilityDetail</h4>
+<br />
+
+<body>
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td>SNo</td>
+                <td>ProductName</td>
+                <td>Brand</td>
+                <td>Quantity</td>
+                <td>Cost</td>
+                <td>Discount</td>
+                <td>MfgDate</td>
+                <td>ExpDate</td>
+                <td>BestBefore</td>
+
+                <td>@Html.ActionLink("AddProductAvailability", "Create", "Product_Availability_Detail")</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            @{ int RowNo = 0;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(RowNo += 1)</td>
+                    <td>@item.ProductId</td>
+                    <td>@item.BrandId</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Cost</td>
+                    <td>@item.Discount</td>
+                    <td>@item.MfgDate</td>
+                    <td>@item.ExpDate</td>
+                    <td>@item.ExpDate</td>
+                    <td>@item.BestBefore</td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+                        @Html.ActionLink("View", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @if (ViewBag.Msg != null)
+    {
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                alert("@ViewBag.Msg")
+            });
+        </script>
+    }
+
+
+</body>
+
+</html>  

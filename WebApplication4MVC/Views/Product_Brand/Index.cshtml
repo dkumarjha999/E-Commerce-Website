@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebApplication4MVC.Models.Product_Brand>
+@{
+    ViewBag.Title = "Index";
+}
+<hr/>
+<h2>ProductBrand</h2><br />
+
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td>SNo</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>SortName</td>
+            <td>Code</td>
+            <td>@Html.ActionLink("CreateNewProductBrand", "Create")</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @{ int RowNo = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(RowNo += 1)</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.SortName</td>
+                <td>@item.Code</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+                    @Html.ActionLink("View", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.Msg")
+        });
+    </script>
+}

@@ -1,0 +1,150 @@
+﻿@model WebApplication4MVC.Models.Product_Info_Detail
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <h4>Product Info Detail</h4><br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product_cat_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Product_cat_id, Model.list_Product_cat, "Select  Product Category Name", new { @class = "form-control", @onchange = "GetProdSubCat_name(this)" })
+                @Html.ValidationMessageFor(model => model.Product_cat_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product_sub_cat_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="lblState"></label>
+                @Html.HiddenFor(model => model.Product_sub_cat_id, new { @id = "nSubCatId", @class = "form-control" })
+                <select id="selSubCat" class="form-control" onchange="GetSubId(this)">
+
+                </select>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Product_sub_cat_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Product_sub_cat_id, Model.list_Product_sub_cat, "Select  Product sub  Category Name", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Product_sub_cat_id, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Product_Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Bar_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Bar_Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bar_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", "Product_Info_Detail", new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function GetProdSubCat_name(control) {
+
+        $("#selSubCat").empty();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("getProductSubCat","Product_Info_Detail")',
+            data: { "Prod_id": control.value },
+            success: function (response) {
+
+                if (response.length > 0) {
+                    var op = "<option value='0'>--Select--</option>";
+                    for (i = 0; i < response.length; i++) {
+                        op += "<option value='" + response[i].Value + "'>" + response[i].Text + "</option>";
+                    }
+                    $("#selSubCat").append(op);
+                }
+            },
+            error: function (response) {
+                alert("error!");
+            }
+          
+        });
+
+    }
+
+    function GetSubId(co) {
+        if (co.Value != "0") {
+            document.getElementById("nSubCatId").value = co.value;
+        }
+    }
+
+</script>
+
+
+
+@*<script>
+
+        function SetdropDownData(sender, args) {
+
+                $('#ShipCo
+    untry').live('change', function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Home/GetCities',
+                        data: { Country: $('#ShipCountry').val() },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#ShipCity option').remove();
+                            $.each(data, function (index, val) {
+                                    var optionTag = $('<option></option>');
+                                    $(optionTag).val(val.Value).text(val.Text);
+                                    $('#ShipCity').append(optionTag);
+
+                            });
+                        }
+                    });
+                });
+
+        }
+
+        </script>*@

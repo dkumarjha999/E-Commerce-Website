@@ -1,0 +1,64 @@
+﻿+@model IEnumerable<WebApplication4MVC.Models.Product_Info_Detail>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<hr />
+<h4>Product Info Detail</h4>
+<br />
+
+<table class="table table-bordered table-responsive">
+  
+    <thead>
+        <tr>
+            <td>SNo</td>
+            <td>ProductCatName</td>
+            <td>ProductSubCatName</td>
+            <td>ProductName</td>
+            <td>ProductCode</td>
+            <td>BarCode</td>
+            <td>Description</td>
+            <td></td>
+
+            <td>@Html.ActionLink("Add New Product","Create", "Product_Info_Detail")</td>
+           
+        </tr>
+
+    </thead>
+    <tbody>
+        @{ int RowNo = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(RowNo += 1)</td>
+                <td>@item.CategoryName</td>
+                <td>@item.SubCategoryName</td>
+                <td>@item.ProductName</td>
+                <td>@item.Product_Code</td>
+                <td>@item.Bar_Code</td>
+                <td>@item.Description</td>
+                <td><a href="@Url.Action("Index", "Product_Img")">Upload Image</a></td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+                    @Html.ActionLink("View", "Details", new { id = item.Id })
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.Msg")
+        });
+    </script>
+}
+
+

@@ -1,0 +1,74 @@
+﻿@model WebApplication4MVC.Models.User_Profile
+@{
+    ViewBag.Title = "UserLogin";
+    Layout = "~/Views/Shared/_LayoutP.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="back-link back-backend">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("UserLogin", "User_Profile", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container-fluid">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+        <div class="col-md-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="text-center custom-login">
+                <h3>Login</h3>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body ">
+                    <form action="POST" id="loginForm">                     
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            @Html.TextBoxFor(Model => Model.PhoneNo, new { @class = "form-control" ,placeholder=" MobileNo  Required* " })
+                            @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger"})                                        
+                           
+                        </div>
+
+                        @*<div class="form-group">
+                            <label>Email</label>
+                            @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control", placeholder = "Either MobileNo Or Email Required" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            
+                        </div>*@
+                            <div class="form-group">
+                                <label>Password</label>
+                                @Html.PasswordFor(Model => Model.UserPassword, new { @class = "form-control", placeholder = "Password  Required* " })
+                                @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                               
+                            </div>
+                        <div>
+                            <div class="checkbox login-checkbox">                              
+                                    <input type="checkbox" class="i-checks col-md-6 col-md-6" checked> Remember me                               
+                            </div>
+                           
+                                <a href="@Url.Action("PasswordRecovery", "Home")" class="btn btn danger text-align  pull-right">ForgotPassword??</a>
+               </div>                          
+                        <div>
+                            <button class="btn btn-success btn-block loginbtn">Login</button>
+                            <button class="btn btn-default btn-block" href="UserReg">Create New Account</button>
+                        </div>
+                          
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
+}
+    <div class="row">
+        <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <p>Copyright &copy; 2018 <a href="">Deepak</a> All rights reserved.</p>
+        </div>
+    </div>
+  
+
+ 

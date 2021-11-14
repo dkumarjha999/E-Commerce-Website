@@ -1,0 +1,71 @@
+﻿@model WebApplication4MVC.ViewModels.ProductAvailablityViewModel
+@{
+    ViewBag.Title = "ProductDetails";
+}
+<hr />
+<h4>ProductDetails</h4><br />
+
+@{int RowNo = 0;}
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td>SNo</td>
+            <td>ProductAvlId</td>
+            <td>ProductName</td>
+            <td>BrandName</td>
+            <td>Quantity</td>
+            <td>Cost</td>
+            <td>Discount</td>
+            <td>MfgDate</td>
+            <td>ExpDate</td>
+            <td>BestBefore</td>
+            <td>BackToList</td>
+            
+        </tr>
+
+    </thead>
+    <tbody>
+        
+          @foreach (var item in Model.list_Product_Availability_Detail)
+          {
+            <tr>
+                <td>@(RowNo += 1)</td>
+                <td>@item.ProductAvlId</td>
+                <td>@item.ProductName</td>
+                <td>@item.BrandName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Cost</td>
+                <td>@item.Discount</td>
+                <td>@item.MfgDate</td>
+                <td>@item.ExpDate</td>
+                <td>@item.BestBefore</td>
+                <td>
+                    @Html.ActionLink("Back", "Index", new { id = item.Id })
+                    
+                </td>
+               
+            </tr>
+           }
+        
+
+    </tbody>
+        
+
+</table>
+
+@if (RowNo == 0)
+{<h2>Sorry  No Product  Is Present For This Vendor  </h2>
+    <h4>@Html.ActionLink("BackToList", "Index")</h4>
+}
+
+
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.Msg")
+        });
+    </script>
+}
+

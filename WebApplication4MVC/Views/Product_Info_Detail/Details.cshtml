@@ -1,0 +1,85 @@
+﻿@model WebApplication4MVC.Models.Product_Info_Detail
+<div>
+    
+    <hr />
+    <h4>Product Info Detail</h4><br />
+
+    <dl class="dl-horizontal">
+        <table class ="table">
+            <tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.CategoryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.SubCategoryName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.SubCategoryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.ProductName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Product_Code)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Product_Code)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Bar_Code)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Bar_Code)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id, @class = "btn btn-default" })
+
+                    @Html.ActionLink("Back to List", "Index", "Product_Info_Detail", new { @class = "btn btn-default" })
+                </h3>
+                </td>
+            </tr>
+        </table>
+    </dl>
+</div>
+<p>
+
+    
+        
+           
+     
+ 
+   
+</p>

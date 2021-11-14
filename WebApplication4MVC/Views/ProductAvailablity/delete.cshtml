@@ -1,0 +1,117 @@
+﻿@*@model WebApplication4MVC.ViewModels.ProductAvailablityViewModel
+@{
+    ViewBag.Title = "delete";
+}
+<hr />
+<h4>Product Avl Detail</h4>
+
+    No view page needed
+
+
+@foreach (var item in Model.list_Product_Availability_Detail)
+{
+    <tr class="dl-horizontal">
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.ProductAvlId)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.ProductAvlId)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.ProductName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.ProductId)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.BrandName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.BrandId)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.Cost)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.Cost)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.Discount)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.Discount)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.MfgDate)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.MfgDate)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.ExpDate)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.ExpDate)
+        </td>
+
+        <td>
+            @Html.DisplayNameFor(model => model.Product_Availability_Detail.BestBefore)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.Product_Availability_Detail.BestBefore)
+        </td>
+
+    </tr>
+}
+
+
+<tr class="dl-horizontal">
+    <td>
+        @Html.DisplayNameFor(model => model.Product_Availability.Ven_name)
+    </td>
+
+    <td>
+        @Html.DisplayFor(model => model.Product_Availability.VendorId)
+    </td>
+
+    <td>
+        @Html.DisplayNameFor(model => model.Product_Availability.AvailabilityDate)
+    </td>
+
+    <td>
+        @Html.DisplayFor(model => model.Product_Availability.AvailabilityDate)
+    </td>
+
+    <td>
+        @Html.DisplayNameFor(model => model.Product_Availability.Description)
+    </td>
+
+    <td>
+        @Html.DisplayFor(model => model.Product_Availability.Description)
+    </td>
+</tr>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" />
+    </div>
+}*@

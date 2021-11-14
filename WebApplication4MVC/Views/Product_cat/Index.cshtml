@@ -1,0 +1,104 @@
+﻿@*@model IEnumerable<WebApplication4MVC.Models.Product_cat>
+@{
+    ViewBag.Title = "Index";
+}*@
+
+
+@*<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+           <td>SNo</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>SortName</td>
+            <td>Code</td>
+           
+
+            <td>@Html.ActionLink("CreateNewProductCategory", "Create")</td>
+        </tr>
+        
+    </thead>
+    <tbody>
+        @{ int RowNo = 0;}
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@(RowNo+=1)</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.SortName</td>
+                <td>@item.Code</td>
+               
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+                    @Html.ActionLink("View", "Details", new { id = item.Id })
+                </td>
+            </tr>    
+        }
+    </tbody>
+</table>*@
+
+@model IEnumerable<WebApplication4MVC.Models.Product_cat>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutP.cshtml";
+}
+
+<style>
+    img {
+        width: auto; /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+        height: auto; /* set to anything and aspect ratio is maintained */
+        max-width: 180px;
+        max-height: 150px;
+        min-height: 30px;
+        min-width: 180px;
+        border: 0; /* for older IE browsers that draw borders around images */
+    }
+</style>
+
+
+@using (Html.BeginForm("SubCatDetail", "Product_sub_cat", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <div class="form-horizontal">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="single-new-trend mg-t-30" style="height:250px; width:220px;">
+                        <span class="btn-small">@item.Name</span>
+                        <a title="SubCategory" href="@Url.Action("SubCatDetail", "Product_sub_cat", new { catid = item.Id })" style="height:150px;width:150px">
+                            <img id="primg" src="@Url.Content(item.Img)" alt="" style="height:220px; width:200px;"  />
+                        </a>
+                        @*<div class="overlay-content">
+                            </div>*@
+                        
+                        @*<a title="View Details" href="@Url.Action("Edit", "Product_cat", new { Imid = item.Id })" style="height:150px;width:150px">Edit</a>
+                            @Html.ActionLink("View", "Details", new { id = item.Id })*@
+                            <a href="#">
+                                <h4> @item.Description</h4>
+                            </a>
+</div>
+                </div>
+    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+            }
+           
+            @Html.ActionLink("CreateNewProductCategory", "Create")
+          
+        </div>
+    </div>
+}
+
+
+
+
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.Msg")
+        });
+    </script>
+}

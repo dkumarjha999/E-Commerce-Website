@@ -1,0 +1,92 @@
+﻿@model WebApplication4MVC.Models.User_Profile
+@{
+    ViewBag.Title = "UserReg";
+    Layout = "~/Views/Shared/_LayoutP.cshtml";
+}
+
+@*<div class="color-line"></div>*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="back-link back-backend">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("UserReg", "User_Profile", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container-fluid">    
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+            <div class="col-md-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="text-center custom-login">
+                    <h3>Registration</h3>
+                </div>
+                <div class="hpanel">
+                    <div class="panel-body ">
+                        <form action="POST" id="loginForm">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label>Username</label>
+                                    @Html.TextBoxFor(Model => Model.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Password</label>
+                                    @Html.PasswordFor(Model => Model.UserPassword, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Confirm Password</label>
+                                    @Html.PasswordFor(Model => Model.ConfUserPassword, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ConfUserPassword, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Mobile Number</label>
+                                    @Html.TextBoxFor(Model => Model.PhoneNo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+                                </div>
+                                @*<div class="form-group col-lg-6">
+                                    <label>Confirm Mobile Number</label>
+                                    @Html.TextBoxFor(Model => Model.ConfPhoneNo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ConfPhoneNo, "", new { @class = "text-danger" })
+                                </div>*@
+                                <div class="form-group col-lg-6">
+                                    <label>Email Address</label>
+                                    @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                                @*<div class="form-group col-lg-6">
+                                    <label>Confirm Email Address</label>
+                                    @Html.TextBoxFor(Model => Model.ConfEmail, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ConfEmail, "", new { @class = "text-danger" })
+                                </div>*@
+                                <div class="checkbox col-lg-12">
+                                   @Html.CheckBoxFor(Model => Model.RegStatus, new { @class = "form-control" }) 
+                                    @Html.ValidationMessageFor(model => model.RegStatus, "", new { @class = "text-danger" })
+                                    <p><strong>Check for our Notification</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success loginbtn">Register</button>
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+  
+}
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <p>Copyright &copy; 2019<a href="">Deepak</a> All rights reserved.</p>
+    </div>
+</div>
+
+

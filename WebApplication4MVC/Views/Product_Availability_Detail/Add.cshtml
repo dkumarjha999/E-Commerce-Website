@@ -1,0 +1,241 @@
+﻿
+
+@model WebApplication4MVC.Models.Product_Availability_Detail
+@{
+    ViewBag.Title = "Add";
+}
+
+
+
+
+<!doctype html>
+<html>
+<head runat="server">
+    <title>Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <p>
+        <br /><br />
+        <h2>
+            this  table is for vendor to provide<strong> vendor Name</strong>,<strong> Product Availability Date</strong><i>and</i> <strong> Product Description</strong>
+        </h2>
+    </p>
+
+
+    <form id="form1" runat="server">
+        <div class="container">
+            <table class="table" id="ProductAvl">
+                <thead>
+                    <tr>
+                        <th>VendorName</th>
+                        <th>AvailabilityDate</th>
+                        <th>Description</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    <tr class="data-Product-availability">
+                        <td>
+                            <label id="Vendor" name="vendorname">
+                                @*@Html.DropDownListFor(model => Product_Availabilitymodel.VendorId, Model.list_Vendor_Info, "Select Vendor Name", new { @class = "text-danger" })*@
+                            </label>
+                        </td>
+                        <td><input type="date" id="avldate" name="AvailabilityDate" class="form-control datepicker" /></td>
+                        <td><input type="text" id="description" name="Description" class="form-control datepicker" /></td>
+                        @*<td><button type="button" id="btnAdd" class="btn btn-xs btn-primary classAddProductAvl">AddVendor</button></td>*@
+                    </tr>
+
+                </tbody>
+            </table>
+            <button type="button" id="btnSubmit" class="btn btn-primary btn-md pull-right btn-xs" onclick="">Submit</button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(document).on("click", ".classAddProductAvl", function () {
+                var rowCount = $('.data-Product-availability').length + 1;
+                var contactdiv = '<tr>'
+                     + '<td><input type="text"  name="VendorId"  value="' + $("#VendorId option:selected").text() + '"  class="form-control" /></td>'
+                     + '<td><input type="text"  name="AvailabilityDate"  value="' + $('#avldate').val() + '"  class="form-control datepicker" /></td>'
+                     + '<td><input type="text"  name="Description"      value="' + $('#description').val() + '"  class="form-control datepicker" /></td>'
+                     + '<td><button type="button" id="btnDelete" class="deleteProduct btn btn btn-danger btn-xs">Remove</button></td>'
+                '</tr>';
+                $('#ProductAvl').append(contactdiv); // Adding these controls to Main table class
+
+                ClearFields1();
+            });
+        });
+
+        $(document).on("click", ".deleteProduct", function () {
+            $(this).closest("tr").remove();
+        });
+
+        function ClearFields1() {
+
+            document.getElementById("avldate").value = "";
+            document.getElementById("description").value = "";
+
+            //$('#VendorId').val('someDefaultValue');
+
+            //$('#VendorId option:eq(0)').attr('selected', 'selected');
+            document.getElementById("VendorId").selectedIndex = 0;
+        }
+
+
+
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+@*@model WebApplication4MVC.Models.Product_Availability_Detail
+@{
+    ViewBag.Title = "Add";
+}*@
+
+<!doctype html >
+<html>
+<head runat="server">
+    <title>Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <p>
+        <h2>
+            this  table is for Product Detail to Provide<br />
+            <strong> Product Name</strong>,<strong> Product Brand </strong> ,<strong>Quantity </strong> <strong> Cost </strong>,<strong> MfgDate </strong> ,<strong>ExpDate </strong> <strong> BestBefore </strong>
+            <br /><i>please fill given details properly</i>
+        </h2>
+    </p>
+
+    <form id="form2" runat="server">
+        <div class="container">
+            <table class="table" id="maintable">
+                <thead>
+                    <tr>
+                        <th>ProductName</th>
+                        <th>Brand</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                        <th>Discount</th>
+                        <th>MfgDate</th>
+                        <th>ExpDate</th>
+                        <th>BestBefore</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="data-contact-person">
+
+
+                        <td>@*<select name="prod-name" id="prod-name" class="form-control "/></select>*@
+                            <label id="product" name="product" class="form-control product">
+                                @Html.DropDownListFor(model => model.ProductId, Model.list_Product_Info_Detail, "Select  Product Name", new { @class = "text-danger" })
+                            </label></td>
+    
+                        <td>@*<select name="brand-name" id="brand-name" class="form-control "/></select>*@
+                            <label id="brand" name="brand" class="form-control brand">
+                                @Html.DropDownListFor(model => model.BrandId, Model.list_Product_Brand, "Select  Brand Name", new { @class = "text-danger" })
+                            </label></td>
+
+                        <td><input type="text" id="quantity" name="quantity" class="form-control quantity" /></td>
+                        <td><input type="text" id="cost" name="cost" class="form-control cost" /></td>
+                        <td><input type="text" id="discount" name="discount" class="form-control discount" /></td>
+                        <td><input type="date" id="mfgdate" name="mfgdate" class="form-control mfgdate" /></td>
+                        <td><input type="date" id="expdate" name="expdate" class="form-control expdate" /></td>
+                        <td><input type="date" id="bestbefore" name="bestbefore" class="form-control bestbefore" /></td>
+                        <td><button type="button" id="btnAdd" class="btn btn-xs btn-primary classAdd">Add More Product</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <button type="button" id="btnSubmit" class="btn btn-primary btn-md pull-right btn-xs" onclick="">Submit</button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        $(document).on("click", ".classAdd", function () { //
+            var rowCount = $('.data-contact-person').length + 1;
+            var a = $("#ProductId option:selected").text();
+            var contactdiv = '<tr>'
+                             + '<td><input type="text"  name="ProductId"  value="' + $("#ProductId option:selected").text() + '"  class="form-control" /></td>'
+                             + '<td><input type="text"  name="brand"  value="' + $('#BrandId option:selected').text() + '"   class="form-control" /></td>'
+                             + '<td><input type="text"  name="quantity"  value="' + $('#quantity').val() + '"  class="form-control" /></td>'
+                             + '<td><input type="text"  name="cost"   value="' + $('#cost').val() + '"   class="form-control" /></td>'
+                             + '<td><input type="text"  name="discount"      value="' + $('#discount').val() + '"  class="form-control" /></td>'
+                             + '<td><input type="text"  name="mfgdate"   value="' + $('#mfgdate').val() + '"   class="form-control" /></td>'
+                             + '<td><input type="date"  name="expdate"   value="' + $('#expdate').val() + '"    class="form-control" /></td>'
+                             + '<td><input type="date"  name="bestbefore"   value="' + $('#bestbefore').val() + '"   class="form-control" /></td> '
+                             + '<td><button type="button" id="btnDelete" class="deleteContact btn btn btn-danger btn-xs">Remove</button></td></tr>';
+            $('#maintable').append(contactdiv);            // Adding these controls to Main table class
+           
+            ClearFields();     // clearing content of column to select
+        });
+
+    });
+
+
+
+    $(document).on("click", ".deleteContact", function () {
+        $(this).closest("tr").remove();
+    });
+
+
+    function ClearFields() {
+
+        document.getElementById("quantity").value = "";
+        document.getElementById("cost").value = "";
+        document.getElementById("discount").value = "";
+        document.getElementById("mfgdate").value = "";
+        document.getElementById("expdate").value = "";
+        document.getElementById("bestbefore").value = "";
+
+
+        //$('#VendorId').val('someDefaultValue');
+
+        //$('#ProductId option:eq(0)').attr('selected', 'selected');
+        //$('#BrandId option:eq(0)').attr('selected', 'selected');
+
+        //$("#btnSubmit").bind("click", function () {
+        //    $("#product")[0].selectedIndex = 0;
+        ////});
+        //document.getElementById("ProductId").options.length = 0;
+
+        var dropDown = document.getElementById("ProductId");
+        dropDown.selectedIndex = 0;
+
+        document.getElementById("BrandId").selectedIndex = 0;
+      
+
+    }
+
+
+        </script>
+
+    </body>
+
+    </html>
+

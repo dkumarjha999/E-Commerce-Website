@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication4MVC.Models.User_Profile>
+@{
+    ViewBag.Title = "Index";
+}
+
+<hr />
+<h4>User Info</h4><br />
+
+
+<h3>@Html.ActionLink("Add New User", "UserReg", "User_Profile")</h3>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td>SNo</td>
+            <td>UserName</td>
+            @*<td>Password</td>*@
+            <td>MobileNo</td>
+            <td>Email</td>
+            @*<td>UpdateButton</td>*@
+            <td>DeleteButton</td>
+            @*<td>Country</td>
+            <td>State</td>
+            <td>City</td>
+            <td>Address</td>
+            <td>@Html.ActionLink("Add New User", "UserReg", "User_Profile")</td>*@
+        </tr>
+
+    </thead>
+    <tbody>
+        @{ int RowNo = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(RowNo += 1)</td>
+                <td>@item.UserName</td>
+                @*<td>@item.UserPassword</td>*@
+                <td>@item.PhoneNo</td>
+                <td>@item.Email</td>              
+                @*<td>@item.CountryName</td>
+                   <td>@item.StateName</td>
+                   <td>@item.CityName</td>
+                   <td>@item.Address</td>*@ 
+               
+                @*<td>
+                    @Html.ActionLink("UpdateProfile", "Edit", new { id = item.Uid })
+                </td>*@
+                <td>
+                    @Html.ActionLink("DeleteUser", "Delete", new { id = item.Uid }, new { @onclick = "return confirm('Do you really want to delete ?')" })
+                    @*@Html.ActionLink("View", "Details", new { id = item.Uid })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("@ViewBag.Msg")
+        });
+    </script>
+}

@@ -1,0 +1,60 @@
+﻿@model WebApplication4MVC.Models.Product_cat
+
+<div>
+    <hr /><h4>Product catategory</h4><br />
+   
+    <dl class="dl-horizontal">
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.SortName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.SortName)
+                </td>
+                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Code)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Code)
+                </td>
+                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Img)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Img)
+                </td>
+            </tr>
+         
+          </table>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
